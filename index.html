@@ -3,368 +3,396 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eNull – Site Performance and Management</title>
+    <title>eNull - Rare Items Locations</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        #map {
+            height: 500px; /* Ensure the map has a height */
+            width: 100%; /* Ensure the map fills the container width */
+        }
+        header {
+            background-color: #007BFF; /* Blue background color */
+            color: white;
+            width: 100%; /* Set width */
+            height: 42px; /* Set height */
+            box-sizing: border-box; /* Include padding in the width and height calculation */
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Distribute space between items */
+            padding: 0 10px; /* Add some padding to the left and right */
+        }
+        .retro-e {
+            font-family: "Verdana", "Arial", sans-serif;
+            font-size: 48px;
+            color: #0000FF; /* Bright blue color */
+            text-shadow: 1px 1px 2px #000000; /* Black shadow for a 3D effect */
+            font-weight: bold;
+            text-decoration: underline;
+            margin: 0;
+        }
+        .search-bar {
+            display: flex;
+            align-items: center;
+        }
+        .search-bar input[type="text"] {
+            height: 24px;
+            width: 200px;
+            padding: 0 10px;
+            border: none;
+            border-radius: 4px;
+        }
+        .search-bar input[type="submit"] {
+            height: 24px;
+            border: none;
+            border-radius: 4px;
+            background-color: white;
+            color: #007BFF;
+            padding: 0 10px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+        .post-ad-button {
+            display: inline-block;
+            width: 66px;
+            height: 41.2px;
+            background-color: red;
+            color: white;
+            text-align: center;
+            line-height: 41.2px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+            font-size: 12px; /* Adjust font size to fit the button */
+            margin-left: 10px; /* Add some margin to separate from search bar */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="https://enull2900.vercel.app/" class="retro-e">e</a>
+        <div class="search-bar">
+            <form action="https://enull2900.vercel.app/" method="get">
+                <input type="text" name="search" placeholder="Search...">
+                <input type="submit" value="Search">
+            </form>
+            <a href="https://enull500.vercel.app/" class="post-ad-button">Post an Ad</a>
+        </div>
+    </header> <!-- Header with retro-styled e link, right-aligned search bar, and Post an Ad button -->
+
+    <main>
+        <div id="map"></div> <!-- Map container -->
+    </main>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Initialize the map and set its view to a specific location and zoom level
+        const map = L.map('map').setView([37.7749, -122.4194], 5); // Centered on San Francisco, CA
+
+        // Add OpenStreetMap tile layer to the map
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: 'Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Define locations relevant to eNull's rare items
+        const locations = [
+            { name: 'eNull Rare Items Hub', lat: 37.7749, lng: -122.4194, description: 'Our main hub for sourcing rare items.' },
+            { name: 'Collector\'s Paradise', lat: 34.0522, lng: -118.2437, description: 'A major collector’s destination.' },
+            { name: 'Antique Treasures', lat: 40.7128, lng: -74.0060, description: 'Specializing in antique rare items.' },
+            { name: 'Rare Finds Gallery', lat: 41.8781, lng: -87.6298, description: 'Gallery showcasing rare collectibles.' }
+        ];
+
+        // Add markers to the map for each location
+        locations.forEach(location => {
+            L.marker([location.lat, location.lng]).addTo(map)
+                .bindPopup(`<b>${location.name}</b><br>${location.description}`);
+        });
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eNull - Rare Items</title>
+    <style>
+        #rare-items {
+            width: 850px;
+            height: 361.4px;
+            background-color: blue;
+            color: white;
+            padding: 10px;
+            overflow-y: scroll;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .rare-item {
+            width: calc(33.33% - 10px); /* Adjust width as needed */
+            margin: 5px;
+        }
+        .rare-item a {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="rare-items">
+        <div class="rare-item"><a href="https://enull3000.vercel.app/" target="_blank">Antique Clocks</a></div>
+        <div class="rare-item"><a href="https://enull3100.vercel.app/" target="_blank">Vintage Cameras</a></div>
+        <div class="rare-item"><a href="https://enull3200.vercel.app/" target="_blank">Rare Books</a></div>
+        <div class="rare-item"><a href="https://enull3300.vercel.app/" target="_blank">Antique Maps</a></div>
+        <div class="rare-item"><a href="https://enull3400.vercel.app/" target="_blank">Vintage Watches</a></div>
+        <div class="rare-item"><a href="https://enull3500.vercel.app/" target="_blank">Rare Stamps</a></div>
+        <div class="rare-item"><a href="https://enull3600.vercel.app/" target="_blank">Historical Documents</a></div>
+        <div class="rare-item"><a href="https://enull3700.vercel.app/" target="_blank">Ancient Coins</a></div>
+        <div class="rare-item"><a href="https://enull3800.vercel.app/" target="_blank">Antique Jewelry</a></div>
+        <div class="rare-item"><a href="https://enull3900.vercel.app/" target="_blank">Rare Vinyl Records</a></div>
+        <div class="rare-item"><a href="https://enull4000.vercel.app/" target="_blank">Vintage Posters</a></div>
+        <div class="rare-item"><a href="https://enull4100.vercel.app/" target="_blank">Classic Cars</a></div>
+        <div class="rare-item"><a href="https://enull4300.vercel.app/" target="_blank">Vintage Toys</a></div>
+        <div class="rare-item"><a href="https://enull4400.vercel.app/" target="_blank">Collectible Cards</a></div>
+        <div class="rare-item"><a href="https://enull4500.vercel.app/" target="_blank">Antique Furniture</a></div>
+        <div class="rare-item"><a href="https://enull4600.vercel.app/" target="_blank">Rare Medals</a></div>
+        <div class="rare-item"><a href="https://enull4700.vercel.app/" target="_blank">Vintage Clothing</a></div>
+        <div class="rare-item"><a href="https://enull4800.vercel.app/" target="_blank">Military Memorabilia</a></div>
+        <div class="rare-item"><a href="https://enull4900.vercel.app/" target="_blank">Vintage Musical Instruments</a></div>
+        <div class="rare-item"><a href="https://enull5000.vercel.app/" target="_blank">Antique Telephones</a></div>
+        <div class="rare-item"><a href="https://enull5100.vercel.app/" target="_blank">Old Newspapers</a></div>
+        <div class="rare-item"><a href="https://enull5200.vercel.app/" target="_blank">Rare Bottles</a></div>
+        <div class="rare-item"><a href="https://enull5300.vercel.app/" target="_blank">Vintage Radios</a></div>
+        <div class="rare-item"><a href="https://enull5400.vercel.app/" target="_blank">Historical Artifacts</a></div>
+        <div class="rare-item"><a href="https://enull5500.vercel.app/" target="_blank">Vintage Tools</a></div>
+        <div class="rare-item"><a href="https://enull5600.vercel.app/" target="_blank">Antique Guns</a></div>
+        <div class="rare-item"><a href="https://enull5700.vercel.app/" target="_blank">Vintage Luggage</a></div>
+        <div class="rare-item"><a href="https://enull5800.vercel.app/" target="_blank">Collectible Figurines</a></div>
+        <div class="rare-item"><a href="https://enull5900.vercel.app/" target="_blank">Rare Autographs</a></div>
+        <div class="rare-item"><a href="https://enull6000.vercel.app/" target="_blank">Vintage Eyewear</a></div>
+        <div class="rare-item"><a href="https://enull6100.vercel.app/" target="_blank">Antique Textiles</a></div>
+        <div class="rare-item"><a href="https://enull6300.vercel.app/" target="_blank">Rare Minerals</a></div>
+        <div class="rare-item"><a href="https://enull6400.vercel.app/" target="_blank">Old Magazines</a></div>
+        <div class="rare-item"><a href="https://enull6500.vercel.app/" target="_blank">Rare Posters</a></div>
+        <div class="rare-item"><a href="https://enull6600.vercel.app/" target="_blank">Antique Bicycles</a></div>
+        <div class="rare-item"><a href="https://enull6700.vercel.app/" target="_blank">Vintage Perfume Bottles</a></div>
+        <div class="rare-item"><a href="https://enull6800.vercel.app/" target="_blank">Collectible Coins</a></div>
+        <div class="rare-item"><a href="https://enull6900.vercel.app/" target="_blank">Antique Silverware</a></div>
+        <div class="rare-item"><a href="https://enull7000.vercel.app/" target="_blank">Rare Fossils</a></div>
+        <div class="rare-item"><a href="https://enull7200.vercel.app/" target="_blank">Vintage Electronics</a></div>
+        <div class="rare-item"><a href="https://enull7300.vercel.app/" target="_blank">Historical Photos</a></div>
+        <div class="rare-item"><a href="https://enull7500.vercel.app/" target="_blank">Antique Pottery</a></div>
+        <div class="rare-item"><a href="https://enull7600.vercel.app/" target="_blank">Rare Shells</a></div>
+        <div class="rare-item"><a href="https://enull7700.vercel.app/" target="_blank">Vintage Hats</a></div>
+        <div class="rare-item"><a href="https://enull7800.vercel.app/" target="_blank">Old Paintings</a></div>
+        <div class="rare-item"><a href="https://enull7900.vercel.app/" target="_blank">Rare Manuscripts</a></div>
+        <div class="rare-item"><a href="https://enull8000.vercel.app/" target="_blank">Vintage Signs</a></div>
+        <div class="rare-item"><a href="https://enull8100.vercel.app/" target="_blank">Collectible Swords</a></div>
+        <div class="rare-item"><a href="https://enull8200.vercel.app/" target="_blank">Antique Bookshelves</a></div>
+        <div class="rare-item"><a href="https://enull8300.vercel.app/" target="_blank">Rare Seeds</a></div>
+        <div class="rare-item"><a href="https://enull8400.vercel.app/" target="_blank">Vintage Glassware</a></div>
+        <div class="rare-item"><a href="https://enull8500.vercel.app/" target="_blank">Old Coins</a></div>
+        <div class="rare-item"><a href="https://enull8700.vercel.app/" target="_blank">Antique Chess Sets</a></div>
+        <div class="rare-item"><a href="https://enull8800.vercel.app/" target="_blank">Rare Rocks</a></div>
+        <div class="rare-item"><a href="https://enull8900.vercel.app/" target="_blank">Vintage Tools</a></div>
+        <div class="rare-item"><a href="https://enull9000.vercel.app/" target="_blank">Rare Collectibles</a></div>
+        <div class="rare-item"><a href="https://enull9100.vercel.app/" target="_blank">Vintage Boats</a></div>
+        <div class="rare-item"><a href="https://enull9200.vercel.app/" target="_blank">Antique Utensils</a></div>
+        <div class="rare-item"><a href="https://enull9300.vercel.app/" target="_blank">Old Records</a></div>
+        <div class="rare-item"><a href="https://enull9400.vercel.app/" target="_blank">Rare Plants</a></div>
+        <div class="rare-item"><a href="https://enull9500.vercel.app/" target="_blank">Vintage Lanterns</a></div>
+        <div class="rare-item"><a href="https://enull9600.vercel.app/" target="_blank">Antique Globes</a></div>
+        <div class="rare-item"><a href="https://enull9700.vercel.app/" target="_blank">Old Maps</a></div>
+        <div class="rare-item"><a href="https://enull9800.vercel.app/" target="_blank">Rare Jewelry</a></div>
+        <div class="rare-item"><a href="https://enull9900.vercel.app/" target="_blank">Vintage Bottles</a></div>
+        <div class="rare-item"><a href="https://enull10000.vercel.app/" target="_blank">Antique Clocks</a></div>
+        <div class="rare-item"><a href="https://enull10100.vercel.app/" target="_blank">Vintage Cameras</a></div>
+        <div class="rare-item"><a href="https://enull10200.vercel.app/" target="_blank">Rare Books</a></div>
+        <div class="rare-item"><a href="https://enull10300.vercel.app/" target="_blank">Antique Maps</a></div>
+        <div class="rare-item"><a href="https://enull10400.vercel.app/" target="_blank">Vintage Watches</a></div>
+        <div class="rare-item"><a href="https://enull10500.vercel.app/" target="_blank">Rare Stamps</a></div>
+        <div class="rare-item"><a href="https://enull10600.vercel.app/" target="_blank">Historical Documents</a></div>
+        <div class="rare-item"><a href="https://enull10700.vercel.app/" target="_blank">Ancient Coins</a></div>
+        <div class="rare-item"><a href="https://enull10800.vercel.app/" target="_blank">Antique Jewelry</a></div>
+        <div class="rare-item"><a href="https://enull10900.vercel.app/" target="_blank">Rare Vinyl Records</a></div>
+        <div class="rare-item"><a href="https://enull11000.vercel.app/" target="_blank">Vintage Posters</a></div>
+        <div class="rare-item"><a href="https://enull11100.vercel.app/" target="_blank">Classic Cars</a></div>
+        <div class="rare-item"><a href="https://enull11300.vercel.app/" target="_blank">Vintage Toys</a></div>
+        <div class="rare-item"><a href="https://enull11400.vercel.app/" target="_blank">Collectible Cards</a></div>
+        <div class="rare-item"><a href="https://enull11500.vercel.app/" target="_blank">Antique Furniture</a></div>
+        <div class="rare-item"><a href="https://enull11600.vercel.app/" target="_blank">Rare Medals</a></div>
+        <div class="rare-item"><a href="https://enull11700.vercel.app/" target="_blank">Vintage Clothing</a></div>
+        <div class="rare-item"><a href="https://enull11800.vercel.app/" target="_blank">Military Memorabilia</a></div>
+        <div class="rare-item"><a href="https://enull11900.vercel.app/" target="_blank">Vintage Musical Instruments</a></div>
+        <div class="rare-item"><a href="https://enull12000.vercel.app/" target="_blank">Antique Telephones</a></div>
+        <div class="rare-item"><a href="https://enull12100.vercel.app/" target="_blank">Old Newspapers</a></div>
+        <div class="rare-item"><a href="https://enull12200.vercel.app/" target="_blank">Rare Bottles</a></div>
+        <div class="rare-item"><a href="https://enull12300.vercel.app/" target="_blank">Vintage Radios</a></div>
+        <div class="rare-item"><a href="https://enull12400.vercel.app/" target="_blank">Historical Artifacts</a></div>
+        <div class="rare-item"><a href="https://enull12500.vercel.app/" target="_blank">Vintage Tools</a></div>
+        <div class="rare-item"><a href="https://enull12600.vercel.app/" target="_blank">Antique Guns</a></div>
+        <div class="rare-item"><a href="https://enull12700.vercel.app/" target="_blank">Vintage Luggage</a></div>
+        <div class="rare-item"><a href="https://enull12800.vercel.app/" target="_blank">Collectible Figurines</a></div>
+        <div class="rare-item"><a href="https://enull12900.vercel.app/" target="_blank">Rare Autographs</a></div>
+        <div class="rare-item"><a href="https://enull13000.vercel.app/" target="_blank">Vintage Eyewear</a></div>
+        <div class="rare-item"><a href="https://enull13100.vercel.app/" target="_blank">Antique Textiles</a></div>
+        <div class="rare-item"><a href="https://enull13300.vercel.app/" target="_blank">Rare Minerals</a></div>
+        <div class="rare-item"><a href="https://enull13400.vercel.app/" target="_blank">Old Magazines</a></div>
+        <div class="rare-item"><a href="https://enull13500.vercel.app/" target="_blank">Rare Posters</a></div>
+        <div class="rare-item"><a href="https://enull13600.vercel.app/" target="_blank">Antique Bicycles</a></div>
+        <div class="rare-item"><a href="https://enull13700.vercel.app/" target="_blank">Vintage Perfume Bottles</a></div>
+        <div class="rare-item"><a href="https://enull13800.vercel.app/" target="_blank">Collectible Coins</a></div>
+        <div class="rare-item"><a href="https://enull13900.vercel.app/" target="_blank">Antique Silverware</a></div>
+      <div class="rare-item"><a href="https://enull1000000-phi.vercel.app/" target="_blank">Antique Watches</a></div>
+            <div class="rare-item"><a href="https://enull2000000-phi.vercel.app/" target="_blank">First Edition Books</a></div>
+            <div class="rare-item"><a href="https://enull3000000-phi.vercel.app/" target="_blank">Vintage Musical Instruments</a></div>
+            <div class="rare-item"><a href="https://enull4000000-phi.vercel.app/" target="_blank">Historical Artifacts</a></div>
+            <div class="rare-item"><a href="https://enull5000000-phi.vercel.app/" target="_blank">Fine Art and Sculptures</a></div>
+    </div>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .category-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .category-list li {
+            margin: 10px 0;
+        }
+        .category-list a {
+            text-decoration: none;
+            color: #0000EE;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1></h1>
+    <ul class="category-list">
+        <li><a href=https://enull1000000-phi.vercel.app/>Antique Watches</a></li>
+        <li><a href="https://enull2000000.vercel.app/">First Edition Books</a></li>
+        <li><a href="https://enull3000000.vercel.app/">Vintage Musical Instruments</a></li>
+        <li><a href="https://enull4000000.vercel.app/">Historical Artifacts</a></li>
+        <li><a href="https://enull5000000.vercel.app/">Fine Art and Sculptures</a></li>
+    </ul>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eNull - Rare Items Marketplace</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
-            position: relative;
-        }
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 15px;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
-        nav {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            padding: 10px;
-            margin: 0 5px;
-            border-radius: 5px;
-        }
-        nav a:hover {
-            background-color: #0056b3;
-        }
-        .sidebar-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 200px;
-            height: 2731.2px;
-            background-color: #fff;
-            border-right: 1px solid #ddd;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-            overflow-y: auto;
-        }
-        .sidebar-tabs {
+            color: #333;
+            min-height: 100vh; /* Ensures the body takes up at least the full height of the viewport */
             display: flex;
-            border-bottom: 1px solid #ddd;
-            background-color: #f4f4f4;
-        }
-        .sidebar-tab {
-            flex: 1;
-            padding: 10px;
-            text-align: center;
-            cursor: pointer;
-            background-color: #ddd;
-        }
-        .sidebar-tab.active {
-            background-color: #fff;
-            border-bottom: 2px solid #007bff;
-        }
-        .sidebar-content {
-            padding: 10px;
-        }
-        .section {
-            background-color: #fff;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .section h2 {
-            margin-top: 0;
-        }
-        .section ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        .section ul li {
-            background-color: #eee;
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 5px;
+            flex-direction: column;
         }
         .content {
-            margin-left: 220px; /* Adjust for sidebar width + margin */
-            padding: 20px;
+            flex: 1; /* Allows the content to grow and take up available space */
+            width: 80%;
+            margin: 20px auto;
+            overflow: hidden;
         }
         footer {
-            background-color: #333;
-            color: #fff;
+            background-color: blue; /* Blue background for footer */
+            color: white;
             text-align: center;
-            padding: 10px;
-            position: fixed;
+            padding: 10px 0;
+            width: 60%; /* Set the width of the footer */
+            margin: 0 auto; /* Center the footer */
+            position: relative; /* Relative positioning for footer */
             bottom: 0;
-            width: calc(100% - 220px); /* Adjusted for sidebar width */
-            left: 220px;
+            left: 0;
+        }
+        footer ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        footer li {
+            margin: 5px 10px;
+        }
+        footer a {
+            color: white;
+            text-decoration: none;
+        }
+        .footer-text {
+            font-size: 14px;
+        }
+        .trademark {
+            font-size: 12px;
+            margin-top: 5px;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>eNull – Site Performance and Management</h1>
-    </header>
-
-    <nav>
-        <a href="#performance">Performance</a>
-        <a href="#site-management">Site Management</a>
-        <a href="#communication">Communication</a>
-        <a href="#personalization">Personalization</a>
-    </nav>
-
-    <div class="sidebar-container">
-        <div class="sidebar-tabs">
-            <div class="sidebar-tab active" onclick="showTab('real-estate')">Real Estate</div>
-            <div class="sidebar-tab" onclick="showTab('vehicles')">Vehicles</div>
-            <div class="sidebar-tab" onclick="showTab('site-performance')">Site Performance</div>
-            <div class="sidebar-tab" onclick="showTab('site-management')">Site Management</div>
-            <div class="sidebar-tab" onclick="showTab('communication')">Communication</div>
-        </div>
-        <div class="sidebar-content">
-            <div id="real-estate" class="section">
-                <h3>Real Estate Categories</h3>
-                <ul>
-                    <li>Single Family Homes</li>
-                    <li>Apartments for Rent</li>
-                    <li>Condos for Sale</li>
-                    <li>Townhouses</li>
-                    <li>Land for Sale</li>
-                    <li>Commercial Real Estate</li>
-                    <li>Vacation Homes</li>
-                    <li>Luxury Estates</li>
-                    <li>Farm Properties</li>
-                    <li>Rental Properties</li>
-                    <li>Foreclosures</li>
-                    <li>Short-term Rentals</li>
-                    <li>Student Housing</li>
-                    <li>Senior Living</li>
-                    <li>Mobile Homes</li>
-                    <li>Investment Properties</li>
-                    <li>Multi-family Homes</li>
-                    <li>Beachfront Properties</li>
-                    <li>Lakefront Properties</li>
-                    <li>Historical Homes</li>
-                </ul>
-            </div>
-
-            <div id="vehicles" class="section" style="display: none;">
-                <h3>Vehicle Categories</h3>
-                <ul>
-                    <li>Sedans</li>
-                    <li>SUVs</li>
-                    <li>Trucks</li>
-                    <li>Motorcycles</li>
-                    <li>ATVs</li>
-                    <li>Boats</li>
-                    <li>RVs</li>
-                    <li>Luxury Cars</li>
-                    <li>Classic Cars</li>
-                    <li>Electric Vehicles</li>
-                    <li>Hybrid Cars</li>
-                    <li>Vans</li>
-                    <li>Commercial Vehicles</li>
-                    <li>Trailers</li>
-                    <li>Car Parts</li>
-                    <li>Accessories</li>
-                    <li>Used Cars</li>
-                    <li>New Cars</li>
-                    <li>Convertibles</li>
-                    <li>Sports Cars</li>
-                </ul>
-            </div>
-
-            <div id="site-performance" class="section" style="display: none;">
-                <h3>Site Performance</h3>
-                <ul>
-                    <li>Load Balancing</li>
-                    <li>Performance Optimization</li>
-                    <li>Caching Strategies</li>
-                    <li>Content Delivery Network (CDN)</li>
-                    <li>Server Performance Monitoring</li>
-                    <li>Database Optimization</li>
-                    <li>Efficient Query Handling</li>
-                    <li>Resource Management</li>
-                    <li>Scalable Architecture</li>
-                    <li>High Traffic Handling</li>
-                    <li>Latency Reduction</li>
-                    <li>Redundancy Planning</li>
-                    <li>Disaster Recovery</li>
-                    <li>Rapid Deployment</li>
-                    <li>System Monitoring</li>
-                    <li>Service Reliability</li>
-                    <li>Error Handling</li>
-                    <li>Performance Metrics</li>
-                    <li>Scalability Solutions</li>
-                    <li>Network Optimization</li>
-                </ul>
-            </div>
-
-            <div id="site-management" class="section" style="display: none;">
-                <h3>Site Management</h3>
-                <ul>
-                    <li>Site Map</li>
-                    <li>Content Management System (CMS)</li>
-                    <li>Version Control</li>
-                    <li>Content Scheduling</li>
-                    <li>User Roles and Permissions</li>
-                    <li>Site Analytics</li>
-                    <li>Content Moderation</li>
-                    <li>Backup and Restore</li>
-                    <li>Error Tracking</li>
-                    <li>System Alerts</li>
-                    <li>Update Management</li>
-                    <li>Site Health Monitoring</li>
-                    <li>Security Management</li>
-                    <li>Performance Reports</li>
-                    <li>System Configuration</li>
-                    <li>Site Customization</li>
-                    <li>Content Approval Workflows</li>
-                    <li>User Activity Logs</li>
-                    <li>Administrative Notifications</li>
-                    <li>Site Maintenance</li>
-                </ul>
-            </div>
-
-            <div id="communication" class="section" style="display: none;">
-                <h3>Communication and Collaboration</h3>
-                <ul>
-                    <li>Internal Messaging System</li>
-                    <li>Collaborative Tools</li>
-                    <li>Project Management Integration</li>
-                    <li>Team Collaboration Features</li>
-                    <li>Document Sharing</li>
-                    <li>File Storage</li>
-                    <li>Version Control for Documents</li>
-                    <li>Meeting Scheduling</li>
-                    <li>Collaborative Editing</li>
-                    <li>Feedback Mechanisms</li>
-                    <li>Activity Feeds</li>
-                    <li>Task Management</li>
-                    <li>Notification System</li>
-                    <li>Group Messaging</li>
-                    <li>Calendar Integration</li>
-                    <li>Real-Time Collaboration</li>
-                    <li>Document Collaboration</li>
-                    <li>Shared Workspaces</li>
-                    <li>Virtual Meetings</li>
-                    <li>Collaboration Analytics</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
     <div class="content">
-        <!-- Performance Section -->
-        <section id="performance" class="section">
-            <h2>Site Performance</h2>
-            <ul>
-                <li>Load Balancing</li>
-                <li>Performance Optimization</li>
-                <li>Caching Strategies</li>
-                <li>Content Delivery Network (CDN)</li>
-                <li>Server Performance Monitoring</li>
-                <li>Database Optimization</li>
-                <li>Efficient Query Handling</li>
-                <li>Resource Management</li>
-                <li>Scalable Architecture</li>
-                <li>High Traffic Handling</li>
-                <li>Latency Reduction</li>
-                <li>Redundancy Planning</li>
-                <li>Disaster Recovery</li>
-                <li>Rapid Deployment</li>
-                <li>System Monitoring</li>
-                <li>Service Reliability</li>
-                <li>Error Handling</li>
-                <li>Performance Metrics</li>
-                <li>Scalability Solutions</li>
-                <li>Network Optimization</li>
-            </ul>
-        </section>
-
-        <!-- Site Management Section -->
-        <section id="site-management" class="section">
-            <h2>Site Management</h2>
-            <ul>
-                <li>Site Map</li>
-                <li>Content Management System (CMS)</li>
-                <li>Version Control</li>
-                <li>Content Scheduling</li>
-                <li>User Roles and Permissions</li>
-                <li>Site Analytics</li>
-                <li>Content Moderation</li>
-                <li>Backup and Restore</li>
-                <li>Error Tracking</li>
-                <li>System Alerts</li>
-                <li>Update Management</li>
-                <li>Site Health Monitoring</li>
-                <li>Security Management</li>
-                <li>Performance Reports</li>
-                <li>System Configuration</li>
-                <li>Site Customization</li>
-                <li>Content Approval Workflows</li>
-                <li>User Activity Logs</li>
-                <li>Administrative Notifications</li>
-                <li>Site Maintenance</li>
-            </ul>
-        </section>
-
-        <!-- Communication Section -->
-        <section id="communication" class="section">
-            <h2>Communication and Collaboration</h2>
-            <ul>
-                <li>Internal Messaging System</li>
-                <li>Collaborative Tools</li>
-                <li>Project Management Integration</li>
-                <li>Team Collaboration Features</li>
-                <li>Document Sharing</li>
-                <li>File Storage</li>
-                <li>Version Control for Documents</li>
-                <li>Meeting Scheduling</li>
-                <li>Collaborative Editing</li>
-                <li>Feedback Mechanisms</li>
-                <li>Activity Feeds</li>
-                <li>Task Management</li>
-                <li>Notification System</li>
-                <li>Group Messaging</li>
-                <li>Calendar Integration</li>
-                <li>Real-Time Collaboration</li>
-                <li>Document Collaboration</li>
-                <li>Shared Workspaces</li>
-                <li>Virtual Meetings</li>
-                <li>Collaboration Analytics</li>
-            </ul>
-        </section>
+        <!-- Main content goes here -->
     </div>
-
     <footer>
-        <p>&copy; 2024 eNull. All rights reserved.</p>
+        <ul>
+            <li><a href="https://enull1000.vercel.app/">About eNull</a></li>
+            <li><a href="https://enull1000.vercel.app/">Contact eNull</a></li>
+            <li><a href="https://enull1000.vercel.app/">Help</a></li>
+            <li><a href="https://enull1000.vercel.app/">Safety Center</a></li>
+            <li><a href="https://enull1000.vercel.app/">Safety Guidelines</a></li>
+            <li><a href="https://enull1000.vercel.app/">Common Scams</a></li>
+            <li><a href="https://enull1000.vercel.app/">Do Not Sell My Information</a></li>
+            <li><a href="https://enull1000.vercel.app/">Cookie Policy</a></li>
+            <li><a href="https://enull1000.vercel.app/">Terms of Use</a></li>
+            <li><a href="https://enull1000.vercel.app/">Fundraising</a></li>
+            <li><a href="https://enull1000.vercel.app/">Advertising</a></li>
+            <li><a href="https://enull1300.vercel.app/">1</a></li>
+            <li><a href="https://enull1400.vercel.app/">2</a></li>
+            <li><a href="https://enull1500.vercel.app/">3</a></li>
+            <li><a href="https://enull1600.vercel.app/">4</a></li>
+            <li><a href="https://vercel.com/bilals-projects-a9be4963/enull1700">5</a></li>
+            <li><a href="https://enull1800.vercel.app/">6</a></li>
+            <li><a href="https://enull1900.vercel.app/">7</a></li>
+            <li><a href="https://enull2000.vercel.app/">8</a></li>
+            <li><a href="https://enill2100.vercel.app/">9</a></li>
+            <li><a href="https://enull2200.vercel.app/">10</a></li>
+            <li><a href="https://enull2300.vercel.app/">11</a></li>
+            <li><a href="https://enull2400.vercel.app/">12</a></li>
+            <li><a href="https://enull2800.vercel.app/">Login</a></li>
+        </ul>
+        <div class="footer-text">
+            &copy; <span id="year"></span> eNull. All rights reserved. Copyrighted.
+        </div>
+        <div class="trademark">
+            eNull™ is a trademark of eNull Inc. All other trademarks and brands are property of their respective owners.
+        </div>
     </footer>
 
     <script>
-        function showTab(tabId) {
-            var tabs = document.querySelectorAll('.sidebar-content > .section');
-            tabs.forEach(function(tab) {
-                if (tab.id === tabId) {
-                    tab.style.display = 'block';
-                } else {
-                    tab.style.display = 'none';
-                }
-            });
-
-            var tabButtons = document.querySelectorAll('.sidebar-tab');
-            tabButtons.forEach(function(button) {
-                if (button.innerText.toLowerCase().replace(/\s+/g, '-') === tabId) {
-                    button.classList.add('active');
-                } else {
-                    button.classList.remove('active');
-                }
-            });
-        }
+        // Update the copyright year automatically
+        document.getElementById('year').textContent = new Date().getFullYear();
     </script>
 </body>
 </html>
+
 
