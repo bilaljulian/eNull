@@ -355,6 +355,307 @@
         <li><a href="https://enull5000000.vercel.app/">Fine Art and Sculptures</a></li>
      <a href="https://enull900.vercel.app/">View Listings</a>
 <a href="https://enull8000000.vercel.app/">Change Location</a>
+	<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Location Popup</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        #change-location {
+            display: inline-block;
+            color: blue;
+            cursor: pointer;
+            margin: 20px;
+            text-decoration: underline;
+        }
+
+        #location-popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            width: 472px;
+            height: 583.4px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto; /* Enable scrolling if content overflows */
+        }
+
+        #map {
+            width: 100%;
+            height: calc(100% - 130px);
+            position: relative;
+            margin-top: 10px;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        #search-button {
+            display: inline-block;
+            margin-bottom: 10px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        #search-button:hover {
+            background-color: #0069d9;
+        }
+
+        #close-button, #select-location-button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        #close-button:hover, #select-location-button:hover {
+            background-color: #45a049;
+        }
+
+        #nearby-list {
+            margin-top: 20px;
+        }
+
+        #nearby-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        #nearby-list li {
+            padding: 5px 0;
+        }
+
+        #nearby-places-button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            width: 100%;
+            text-align: left;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        #dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            box-sizing: border-box;
+            z-index: 1001;
+        }
+
+        #dropdown-menu button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: white;
+            text-align: left;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #dropdown-menu button:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+
+<div id="change-location">Change Location</div>
+
+<div id="location-popup">
+    <input type="text" id="search-input" placeholder="Enter city or zip code">
+    <button id="search-button">Find Location</button>
+    <div id="map"></div>
+    <button id="select-location-button">Select Location</button>
+    <button id="close-button">Close</button>
+    <button id="nearby-places-button">Nearby Places</button>
+    <div id="dropdown-menu">
+        <button data-category="restaurant">Restaurants</button>
+        <button data-category="cafe">Cafes</button>
+        <button data-category="museum">Museums</button>
+        <button data-category="park">Parks</button>
+    </div>
+    <div id="nearby-list">
+        <h3>Nearby Places</h3>
+        <ul id="nearby-places-list">
+            <!-- Nearby places will be populated here -->
+        </ul>
+    </div>
+</div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    const changeLocationLink = document.getElementById('change-location');
+    const locationPopup = document.getElementById('location-popup');
+    const closeButton = document.getElementById('close-button');
+    const selectLocationButton = document.getElementById('select-location-button');
+    const searchButton = document.getElementById('search-button');
+    const searchInput = document.getElementById('search-input');
+    const nearbyPlacesList = document.getElementById('nearby-places-list');
+    const nearbyPlacesButton = document.getElementById('nearby-places-button');
+    const dropdownMenu = document.getElementById('dropdown-menu');
+
+    // Initialize the map
+    let map;
+    let circle;
+    let selectedLocation = '';
+    let currentLatLng;
+
+    function initializeMap() {
+        map = L.map('map').setView([51.505, -0.09], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+
+        // Initialize the circle but don't display it yet
+        circle = L.circle([51.505, -0.09], {
+            color: 'blue',
+            fillColor: '#30f',
+            fillOpacity: 0.3,
+            radius: 1000 // Default radius, will be adjusted later
+        }).addTo(map);
+    }
+
+    function setMapView(lat, lon) {
+        currentLatLng = new L.LatLng(lat, lon);
+        map.setView(currentLatLng, 13); // Zoom level 13 for close view
+        circle.setLatLng(currentLatLng);
+        circle.setRadius(5000); // Set radius to cover a larger area
+
+        fetchNearbyPlaces(lat, lon, 'restaurant'); // Default category
+    }
+
+    function searchLocation(query) {
+        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.length > 0) {
+                    const { lat, lon, display_name } = data[0];
+                    selectedLocation = display_name;
+                    setMapView(lat, lon);
+                } else {
+                    alert('Location not found. Please try another search.');
+                }
+            });
+    }
+
+    function fetchNearbyPlaces(lat, lon, category) {
+        const radius = 2000; // Radius in meters
+        fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=5&radius=${radius}&lat=${lat}&lon=${lon}&q=${category}`)
+            .then(response => response.json())
+            .then(data => {
+                nearbyPlacesList.innerHTML = ''; // Clear existing list
+                if (data && data.length > 0) {
+                    data.forEach(place => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = place.display_name;
+                        nearbyPlacesList.appendChild(listItem);
+                    });
+                } else {
+                    nearbyPlacesList.innerHTML = '<li>No nearby places found.</li>';
+                }
+            });
+    }
+
+    function toggleDropdown() {
+        const isVisible = dropdownMenu.style.display === 'block';
+        dropdownMenu.style.display = isVisible ? 'none' : 'block';
+    }
+
+    function handleDropdownSelection(category) {
+        if (currentLatLng) {
+            fetchNearbyPlaces(currentLatLng.lat, currentLatLng.lng, category);
+        }
+        dropdownMenu.style.display = 'none';
+    }
+
+    changeLocationLink.addEventListener('click', () => {
+        locationPopup.style.display = 'block';
+        if (!map) {
+            initializeMap();
+        }
+    });
+
+    closeButton.addEventListener('click', () => {
+        locationPopup.style.display = 'none';
+    });
+
+    selectLocationButton.addEventListener('click', () => {
+        if (selectedLocation) {
+            changeLocationLink.textContent = selectedLocation; // Update the link text
+        }
+        locationPopup.style.display = 'none';
+    });
+
+    searchButton.addEventListener('click', () => {
+        const query = searchInput.value.trim();
+        if (query) {
+            searchLocation(query);
+        }
+    });
+
+    searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            searchButton.click();
+        }
+    });
+
+    nearbyPlacesButton.addEventListener('click', toggleDropdown);
+
+    dropdownMenu.addEventListener('click', (e) => {
+        if (e.target.tagName === 'BUTTON') {
+            const category = e.target.getAttribute('data-category');
+            handleDropdownSelection(category);
+        }
+    });
+
+</script>
+
+</body>
+</html>
+    
     </ul>
 </body>
 </html>
